@@ -15,6 +15,7 @@ Gathered data is put to `Macmoved` folder.
 
 ## Usage
 
+    ./macmove.sh [command]
 	apps — populate list of installed apps
 	bashrc  — copy .bashrc file
 	profile — copy .profile file

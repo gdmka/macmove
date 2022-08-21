@@ -120,6 +120,7 @@ case "$1" in
 		;;
 	*) cat <<END
 Usage:
+$0 [command]
 	apps — populate list of installed apps
 	bashrc  — copy .bashrc file
 	profile — copy .profile file
