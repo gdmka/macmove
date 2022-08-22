@@ -16,43 +16,6 @@ dump_app_list() {
 	sort -u <(ls  /Applications) <(ls "$HOME/Applications") > "$CUR_DIR/installed_apps.txt"
 }
 
-copy_bashrc() {
-	if [[ -f $HOME/.bashrc ]]; then
-		echo "Making copy of .bashrc"
-		cp "$HOME/.bashrc" "$CUR_DIR/bashrc"
-	else
-		echo "Could not copy .bashrc: file not found"
-	fi
-}
-
-
-copy_zhrc() {
-	if [[ -f $HOME/.bashrc ]]; then
-		echo "Making copy of .zshrc"
-		cp "$HOME/.zshrc" "$CUR_DIR/zshrc"
-	else
-		echo "Could not copy .zshrc: file not found"
-	fi
-}
-
-copy_zprofile() {
-	if [[ -f $HOME/.bashrc ]]; then
-		echo "Making copy of .zprofile"
-		cp "$HOME/.zprofile" "$CUR_DIR/zprofile"
-	else
-		echo "Could not copy .zprofile: file not found"
-	fi
-}
-
-copy_profile() {
-	if [[ -f $HOME/.bashrc ]]; then
-		echo "Making copy of .profile"
-		cp "$HOME/.profile" "$CUR_DIR/profile"
-	else
-		echo "Could not copy .profile: file not found"
-	fi
-}
-
 copy_display_profiles() {
 	echo "Copying Display profiles"
 	cp -r "/Library/ColorSync/Profiles/Displays" "$CUR_DIR"
@@ -74,40 +37,44 @@ dump_brew_taps() {
 	brew tap > "$CUR_DIR/brew_taps.txt"
 }
 
+copy_dotfiles() {
+	echo "Copying dotfiles"
+	for dot in $(find $HOME -name ".*" -maxdepth 1 -type f -and -not -name ".DS_Store"); do cp "$dot" "$CUR_DIR"; done
+}
+
+copy_dotfolders() {
+	echo "Copying dotfolders"
+	for dotf in $(find $HOME -name ".*" -maxdepth 1 -type d -and -not -name ".Trash"); do cp -Rp "$dotf" "$CUR_DIR"; done
+}
+
 
 full() {
 	dump_app_list
-	copy_bashrc
-	copy_zhrc
-	copy_profile
-	copy_zprofile
 	copy_display_profiles
 	dump_brew_formulas
 	dump_brew_casks
 	dump_brew_taps
+	copy_dotfiles
+	copy_dotfolders
 }
 
 check_export_dir_here
 
 case "$1" in
 	full | all)
-		full;;
-	apps)
-		dump_app_list;;
-	bashrc)
-		copy_bashrc
+		full
 		;;
-	zshrc)
-		copy_zhrc
+	apps)
+		dump_app_list
+		;;
+	dotfiles)
+		copy_dotfiles
+		;;
+	dotfolders)
+		copy_dotfolders
 		;;
 	display)
 		copy_display_profiles
-		;;
-	profile)
-		copy_profile
-		;;
-	zprofile)
-		copy_zprofile
 		;;
 	casks)
 		dump_brew_casks
@@ -122,10 +89,8 @@ case "$1" in
 Usage:
 $0 [command]
 	apps — populate list of installed apps
-	bashrc  — copy .bashrc file
-	profile — copy .profile file
-	zshrc — copy .zshrc file
-	zprofile — copy .zprofile file
+	dotfiles  — copy all dotfiles found in '$HOME'
+	dotfolders — copy all dotfolders found in '$HOME' recursively
 	display — copy directory containing all .icc profiles
 	casks — populate list of installed casks
 	taps — populate list of added brew taps

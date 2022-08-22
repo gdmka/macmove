@@ -17,10 +17,8 @@ Gathered data is put to `Macmoved` folder.
 
     ./macmove.sh [command]
 	apps — populate list of installed apps
-	bashrc  — copy .bashrc file
-	profile — copy .profile file
-	zshrc — copy .zshrc file
-	zprofile — copy .zprofile file
+	dotfiles  — copy all dotfiles found in /Users/gdmka
+	dotfolders — copy all dotfolders found in /Users/gdmka recursively
 	display — copy directory containing all .icc profiles
 	casks — populate list of installed casks
 	taps — populate list of added brew taps
