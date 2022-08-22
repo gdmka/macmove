@@ -6,7 +6,7 @@ Macmove is a utility that helps to move crucial config from one Mac to another. 
 
 Currently Macmove can:
 
-* Copy crucial dotfiles (`.profile`, `.bashrc` and `zsh` related dotfiles)
+* Copy crucial dotfiles and dotfolders(`.ssh`, `.profile`, `.bashrc`, `.config` etc )
 * Create a list of installed apps both active user wide and system wide
 * Copy `.icc` display profiles folder
 * Create a list of `brew` specific data: installed formulas, taps and casks
