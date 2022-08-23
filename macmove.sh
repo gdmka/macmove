@@ -39,12 +39,12 @@ dump_brew_taps() {
 
 copy_dotfiles() {
 	echo "Copying dotfiles"
-	for dot in $(find $HOME -name ".*" -maxdepth 1 -type f -and -not -name ".DS_Store"); do cp "$dot" "$CUR_DIR"; done
+	for dot in $(find $HOME -maxdepth 1 -name ".*" -type f -and -not -name ".DS_Store"); do cp "$dot" "$CUR_DIR"; done
 }
 
 copy_dotfolders() {
 	echo "Copying dotfolders"
-	for dotf in $(find $HOME -name ".*" -maxdepth 1 -type d -and -not -name ".Trash"); do cp -Rp "$dotf" "$CUR_DIR"; done
+	for dotf in $(find $HOME -maxdepth 1 -name ".*" -type d -and -not -name ".Trash"); do cp -Rp "$dotf" "$CUR_DIR"; done
 }
 
 
